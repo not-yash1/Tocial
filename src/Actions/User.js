@@ -1,14 +1,16 @@
 import axios from "axios"
 
+const serverUrl = "http://localhost:4000/api/v1"
+
 export const loginUser = (email, password) => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "LoginRequest",
         });
 
-        const {data} = await axios.post("/api/v1/login", {email, password}, {
+        const {data} = await axios.post(`${serverUrl}/login`, {email, password}, {
+            withCredentials: true,
+        }, {
             headers:{
                 "Content-Type":"application/json"
             },
@@ -40,7 +42,9 @@ export const registerUser = (name, email, password, username, avatar) => async(d
             type: "RegisterRequest",
         });
 
-        const {data} = await axios.post("/api/v1/register", {name, email, password, username, avatar}, {
+        const {data} = await axios.post(`${serverUrl}/register`, {name, email, password, username, avatar}, {
+            withCredentials: true,
+        }, {
             headers:{
                 "Content-Type":"application/json"
             },
@@ -70,7 +74,9 @@ export const logoutUser = () => async(dispatch) => {
             type: "LogoutUserRequest",
         });
 
-        await axios.get("/api/v1/logout");
+        await axios.get(`${serverUrl}/logout`, {
+            withCredentials: true,
+        });
 
         // console.log(data);
 
@@ -90,14 +96,14 @@ export const logoutUser = () => async(dispatch) => {
 }
 
 export const loadUser = () => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "LoadUserRequest",
         });
 
-        const {data} = await axios.get("/api/v1/me");
+        const {data} = await axios.get(`${serverUrl}/me`, {
+            withCredentials: true,
+        });
 
         // console.log(data);
 
@@ -116,14 +122,14 @@ export const loadUser = () => async(dispatch) => {
 }
 
 export const getFollowingPosts = () => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "postOfFollowingRequest",
         });
 
-        const {data} = await axios.get("/api/v1/posts");
+        const {data} = await axios.get(`${serverUrl}/posts`, {
+            withCredentials: true,
+        });
 
         // console.log(data);
 
@@ -142,16 +148,14 @@ export const getFollowingPosts = () => async(dispatch) => {
 }
 
 export const getallUsers = (name = "") => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "allUserRequest",
         });
 
-        const {data} = await axios.get(`/api/v1/users?name=${name}`);
-
-        // console.log(data);
+        const {data} = await axios.get(`${serverUrl}/users?name=${name}`, {
+            withCredentials: true,
+        });
 
         dispatch({
             type: "allUserSuccess",
@@ -168,15 +172,15 @@ export const getallUsers = (name = "") => async(dispatch) => {
 }
 
 export const updateProfile = (name, email, username, avatar) => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "updateProfileRequest",
         });
 
-        const {data} = await axios.put('/api/v1/update/profile', {
+        const {data} = await axios.put(`${serverUrl}/update/profile`, {
             name, email, username, avatar
+        }, {
+            withCredentials: true,
         }, {
             headers:{
                 "Content-Type":"application/json"
@@ -201,15 +205,15 @@ export const updateProfile = (name, email, username, avatar) => async(dispatch) 
 }
 
 export const updateMyPassword = (oldPassword, newPassword, confirmPassword) => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "updatePasswordRequest",
         });
 
-        const {data} = await axios.put('/api/v1/update/password', {
+        const {data} = await axios.put(`${serverUrl}/update/password`, {
             oldPassword, newPassword, confirmPassword
+        }, {
+            withCredentials: true,
         }, {
             headers:{
                 "Content-Type":"application/json"
@@ -234,14 +238,14 @@ export const updateMyPassword = (oldPassword, newPassword, confirmPassword) => a
 }
 
 export const deleteMyProfile = () => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "deleteProfileRequest",
         });
 
-        const {data} = await axios.delete('/api/v1/delete/me');
+        const {data} = await axios.delete(`${serverUrl}/delete/me`, {
+            withCredentials: true,
+        });
 
         // console.log(data);
 
@@ -261,15 +265,15 @@ export const deleteMyProfile = () => async(dispatch) => {
 }
 
 export const forgotPassword = (email) => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "forgotPasswordRequest",
         });
 
-        const {data} = await axios.post('/api/v1/forgot/password', {
+        const {data} = await axios.post(`${serverUrl}/forgot/password`, {
             email
+        }, {
+            withCredentials: true,
         }, {
             headers:{
                 "Content-Type":"application/json"
@@ -294,15 +298,15 @@ export const forgotPassword = (email) => async(dispatch) => {
 }
 
 export const resetPassword = (token, newPassword, confirmPassword) => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "resetPasswordRequest",
         });
 
-        const {data} = await axios.put(`/api/v1/password/reset/${token}`, {
+        const {data} = await axios.put(`${serverUrl}/password/reset/${token}`, {
             newPassword, confirmPassword
+        }, {
+            withCredentials: true,
         }, {
             headers:{
                 "Content-Type":"application/json"
@@ -327,16 +331,14 @@ export const resetPassword = (token, newPassword, confirmPassword) => async(disp
 }
 
 export const getUserProfile = (id) => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "userProfileRequest",
         });
 
-        const {data} = await axios.get(`/api/v1/user/${id}`);
-
-        // console.log(data);
+        const {data} = await axios.get(`${serverUrl}/user/${id}`, {
+            withCredentials: true,
+        });
 
         dispatch({
             type: "userProfileSuccess",
@@ -353,16 +355,14 @@ export const getUserProfile = (id) => async(dispatch) => {
 }
 
 export const followAndUnfollowUser = (id) => async(dispatch) => {
-
     try {
-
         dispatch({
             type: "followUserRequest",
         });
 
-        const {data} = await axios.get(`/api/v1/follow/${id}`);
-
-        // console.log(data);
+        const {data} = await axios.get(`${serverUrl}/follow/${id}`, {
+            withCredentials: true,
+        });
 
         dispatch({
             type: "followUserSuccess",
