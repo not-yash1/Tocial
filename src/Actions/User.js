@@ -1,6 +1,7 @@
 import axios from "axios"
 
-const serverUrl = "http://localhost:4000/api/v1"
+// const serverUrl = "http://localhost:4000/api/v1"
+const serverUrl = "https://tocial-backend.onrender.com/api/v1"
 
 export const loginUser = (email, password) => async(dispatch) => {
     try {
